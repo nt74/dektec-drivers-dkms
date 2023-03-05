@@ -24,9 +24,9 @@ package() {
 	cd "${srcdir}/dektec-dkms-${pkgver}/tmp/dektec-dkms-${_sdkver}"
 	install -dm 755 "${pkgdir}/usr/src"
 	# install license
-	install -Dm644 "License" "${pkgdir}/usr/share/licenses/${pkgname}-${pkgver}/LICENSE"
+	install -Dm644 "License" "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
 	# install sources
-	cp -dr --no-preserve='ownership' "dektec-${_sdkver}" "${pkgdir}/usr/src/${pkgname}-${pkgver}"
+	cp -dr --no-preserve='ownership' "dektec-${_sdkver}" "${pkgdir}/usr/src/${pkgname}"
 	# install udev-rules
 	install -Dm644 51-*.rules -t "${pkgdir}/etc/udev/rules.d/"
 }
