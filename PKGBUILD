@@ -31,7 +31,7 @@ package() {
 	# install license
 	install -Dm644 "License" "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
 	# install sources
-	cp -dr --no-preserve='ownership' "dektec-${_sdkver}" "${pkgdir}/usr/src/${pkgname}"
+	cp -dr --no-preserve='ownership' "dektec-${_sdkver}" "${pkgdir}/usr/src/${pkgname}-${pkgver}"
 	# install udev-rules
 	install -Dm644 51-*.rules -t "${pkgdir}/etc/udev/rules.d/"
 }
