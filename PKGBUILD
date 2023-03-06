@@ -18,6 +18,9 @@ prepare() {
 	cd "${srcdir}/dektec-dkms-${pkgver}"
 	# prepare dektec-dkms driver in tmp/
 	./build-dektec-dkms --prepare
+	# remove REMAKE_INITRD from dkms.conf
+	sed -i '/REMAKE_INITRD=no/d' \
+	"${srcdir}/dektec-dkms-${pkgver}/tmp/dektec-dkms-${_sdkver}/dektec-${_sdkver}/dkms.conf"
 }
 
 package() {
@@ -26,7 +29,7 @@ package() {
 	# install license
 	install -Dm644 "License" "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
 	# install sources
-	cp -dr --no-preserve='ownership' "dektec-${_sdkver}" "${pkgdir}/usr/src/${pkgname}"
+	cp -dr --no-preserve='ownership' "dektec-${_sdkver}" "${pkgdir}/usr/src/${pkgname}-${pkgver}"
 	# install udev-rules
 	install -Dm644 51-*.rules -t "${pkgdir}/etc/udev/rules.d/"
 }
