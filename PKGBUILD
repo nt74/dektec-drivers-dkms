@@ -22,7 +22,7 @@ prepare() {
 package() {
 	cd "${srcdir}/dektec-dkms-${pkgver}"
 	# check version of DekTec's Linux SDK
-	_sdkver=$(./get-dektec-linux-sdk-url.sh | grep -oP '(?<=_v).*(?=.tar.gz)')
+	_sdkver=$(./get-dektec-linux-sdk-url.sh | sed 's/.*_v//;s/.tar.gz//')
 
 	cd "${srcdir}/dektec-dkms-${pkgver}/tmp/dektec-dkms-${_sdkver}"
 	# remove deprecated feature REMAKE_INITRD=no from dkms.conf
