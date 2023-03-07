@@ -20,18 +20,19 @@ prepare() {
 }
 
 package() {
-	cd "${srcdir}/dektec-dkms-${pkgver}"
 	# check version of DekTec's Linux SDK
-	_sdkver=$(./get-dektec-linux-sdk-url.sh | sed 's/.*_v//;s/.tar.gz//')
+	cd "${srcdir}/dektec-dkms-${pkgver}"
+	sdkver=$(./get-dektec-linux-sdk-url.sh | sed 's/.*_v//;s/.tar.gz//')
 
-	cd "${srcdir}/dektec-dkms-${pkgver}/tmp/dektec-dkms-${_sdkver}"
+	# start package
+	cd "${srcdir}/dektec-dkms-${pkgver}/tmp/dektec-dkms-${sdkver}"
 	# remove deprecated feature REMAKE_INITRD=no from dkms.conf
-	sed -i '/REMAKE_INITRD=no/d' "dektec-${_sdkver}/dkms.conf"	
+	sed -i '/REMAKE_INITRD=no/d' "dektec-${sdkver}/dkms.conf"	
 	install -dm 755 "${pkgdir}/usr/src"
 	# install license
 	install -Dm644 "License" "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
 	# install sources
-	cp -dr --no-preserve='ownership' "dektec-${_sdkver}" "${pkgdir}/usr/src/${pkgname}-${pkgver}"
+	cp -dr --no-preserve='ownership' "dektec-${sdkver}" "${pkgdir}/usr/src/${pkgname}-${pkgver}"
 	# install udev-rules
 	install -Dm644 51-*.rules -t "${pkgdir}/etc/udev/rules.d/"
 }
