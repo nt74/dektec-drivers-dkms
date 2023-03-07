@@ -25,10 +25,10 @@ package() {
 	sdkver=$(./get-dektec-linux-sdk-url.sh | sed 's/.*_v//;s/.tar.gz//')
 
 	# start package
+	install -dm 755 "${pkgdir}/usr/src"
 	cd "${srcdir}/dektec-dkms-${pkgver}/tmp/dektec-dkms-${sdkver}"
 	# remove deprecated feature REMAKE_INITRD=no from dkms.conf
 	sed -i '/REMAKE_INITRD=no/d' "dektec-${sdkver}/dkms.conf"	
-	install -dm 755 "${pkgdir}/usr/src"
 	# install license
 	install -Dm644 "License" "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
 	# install sources
